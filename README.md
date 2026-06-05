@@ -8,16 +8,15 @@ A simple Python command-line tool that detects file types using file signature (
 
 - Detects file type by comparing file bytes against known magic signatures
 - Supports 30+ file formats including `png`, `jpg`, `pdf`, `zip`, `mp3`, `mp4`, `exe`, `iso`, `rar`, and more
-- Generates JSON reports with file name, size, type, and report path
+- Generates JSON or CSV reports with file name, size, type, and report path
 - Extensible `fileSignatures.json` database with 30+ file types
-- Interactive CLI mode with user-friendly prompt loop
+- Full `argparse` CLI support with `--file`, `--batch`, `--output`, `--format`, `--recursive`, and `--verbose`
+- Interactive fallback mode when no CLI arguments are provided
 - Comprehensive error handling (missing files, permission errors, read failures)
 - Modular signature validation and offset parsing
 
 ### Planned Features 🚀
 
-- Full `argparse` CLI with `--file`, `--batch`, `--output`, `--format`, `--recursive` flags
-- CSV export alongside JSON
 - Batch directory scanning with aggregated reporting
 - Extended metadata (creation time, modification time, file permissions, encoding detection)
 - Logging and progress indicators
@@ -28,7 +27,7 @@ A simple Python command-line tool that detects file types using file signature (
 - `FileAnalyzer.py` - Main analyzer script with the CLI and file type detection logic
 - `FileSignaturedumper.py` - Helper script to generate or update the `fileSignatures.json` database
 - `fileSignatures.json` - Signature database defining supported file types, hex patterns, and offsets
-- `reports/` - Output folder for generated analysis reports
+- `Reports/` - Output folder for generated analysis reports
 - `test1.json` - Example data file (project-specific)
 - `ep.csv` - Example dataset file (project-specific)
 - `plan-smartFileTypeDetector.prompt.md` - Project planning prompt
@@ -55,18 +54,37 @@ python FileAnalyzer.py
 
 ## Usage
 
-When you run `FileAnalyzer.py`, the script prompts for the absolute file path to analyze.
+### CLI usage
 
-- Enter the file path and press Enter
-- Enter `Q` to quit
+Run the analyzer directly with command-line arguments:
 
-Example:
-
-```text
-Enter the absolute path to the file (or 'Q' to quit ): C:\path\to\example.pdf
+```bash
+python FileAnalyzer.py --file "C:\path\to\example.pdf" --output Reports --format json
 ```
 
-The script will create a JSON report in the `Reports/` folder, for example:
+Or for CSV export:
+
+```bash
+python FileAnalyzer.py --file "C:\path\to\example.csv" --output Reports --format csv
+```
+
+For batch processing:
+
+```bash
+python FileAnalyzer.py --batch "C:\path\to\folder" --output Reports --format json --recursive
+```
+
+### Interactive fallback
+
+If you run the script without CLI arguments, it still prompts for a file path:
+
+```bash
+python FileAnalyzer.py
+```
+
+Then enter the absolute file path and press Enter, or enter `Q` to quit.
+
+Reports are saved in the `Reports/` folder by default, for example:
 
 ```text
 Reports\example_report.json
@@ -97,17 +115,17 @@ Based on `plan-smartFileTypeDetector.prompt.md`:
 
 - Core `FileTypeDetector` class with signature loading and validation
 - Binary signature detection with magic bytes and offset matching
-- JSON report generation to `reports/` directory
+- JSON report generation to `Reports/` directory
 - Error handling for file I/O and permission issues
 - Interactive input loop via `getFile()` function
 - Basic metadata: file name, file size, detected type
 
-### 🔄 Phase 1: CLI Framework (IN PROGRESS)
+### 🔄 Phase 1: CLI Framework (COMPLETED)
 
-- [ ] Replace interactive mode with full `argparse` argument parser
-- [ ] Implement `--file`, `--batch`, `--output`, `--format`, `--recursive`, `--verbose` flags
-- [ ] Create `main()` entrypoint to route CLI args vs. interactive fallback
-- [ ] Graceful argument validation and help documentation
+- [x] Replace interactive mode with full `argparse` argument parser
+- [x] Implement `--file`, `--batch`, `--output`, `--format`, `--recursive`, `--verbose` flags
+- [x] Create `main()` entrypoint to route CLI args vs. interactive fallback
+- [x] Graceful argument validation and help documentation
 
 ### 📋 Phase 2: Extended Metadata & Export (PLANNED)
 
@@ -143,9 +161,8 @@ Based on `plan-smartFileTypeDetector.prompt.md`:
 - The script currently reads the first bytes of the file (up to 512 bytes) based on the largest required signature length
 - Files are matched against 30+ known magic byte signatures with offset support
 - If a file type cannot be identified, the analyzer returns `Unknown`
-- Currently operates in interactive mode; full CLI argument support is planned for Phase 1
-- `argparse` is imported but not yet integrated into the main execution flow
-- All reports are saved as JSON to the `reports/` directory (auto-created)
+- CLI argument support is implemented; interactive fallback remains available when no args are passed
+- All reports are saved to the `Reports/` directory by default (auto-created)
 - Supports both decimal and hexadecimal offset specifications in signature definitions
 
 ## License
