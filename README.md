@@ -8,7 +8,7 @@ A simple Python command-line tool that detects file types using file signature (
 
 - Detects file type by comparing file bytes against known magic signatures
 - Supports 30+ file formats including `png`, `jpg`, `pdf`, `zip`, `mp3`, `mp4`, `exe`, `iso`, `rar`, and more
-- Generates JSON or CSV reports with file name, size, type, and report path
+- Generates JSON or CSV reports with file name, size, type, encoding, timestamps, permissions, and report path
 - Extensible `fileSignatures.json` database with 30+ file types
 - Full `argparse` CLI support with `--file`, `--batch`, `--output`, `--format`, `--recursive`, and `--verbose`
 - Interactive fallback mode when no CLI arguments are provided
@@ -127,11 +127,11 @@ Based on `plan-smartFileTypeDetector.prompt.md`:
 - [x] Create `main()` entrypoint to route CLI args vs. interactive fallback
 - [x] Graceful argument validation and help documentation
 
-### 📋 Phase 2: Extended Metadata & Export (PLANNED)
+### 📋 Phase 2: Extended Metadata & Export (COMPLETED)
 
-- [ ] Enhanced metadata extraction (timestamps, permissions, encoding detection)
-- [ ] CSV export support with header rows and proper formatting
-- [ ] File absolute path, creation/modification times in reports
+- [x] Enhanced metadata extraction (timestamps, permissions, encoding detection)
+- [x] CSV export support with header rows and proper formatting
+- [x] File absolute path, creation/modification times in reports
 
 ### 📦 Phase 3: Batch Processing (PLANNED)
 

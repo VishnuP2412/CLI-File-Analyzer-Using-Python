@@ -22,13 +22,13 @@
 
 ### Phase 2: Extended Metadata & Export (CORE)
 
-- [ ] **Enhance metadata extraction** - Add comprehensive file information:
+- [x] **Enhance metadata extraction** - Add comprehensive file information:
   - Absolute file path
   - Creation time (os.stat().st_ctime)
   - Modification time (os.stat().st_mtime)
   - File mode/permissions (os.stat().st_mode)
   - File encoding detection (for text files)
-- [ ] **CSV export support** - Implement structured CSV writer
+- [x] **CSV export support** - Implement structured CSV writer
   - Header row with all metadata fields
   - Per-file rows for batch results
   - Proper escaping and formatting
@@ -88,15 +88,16 @@ These add professional polish and demonstrate advanced skills:
 
 ## ✅ COMPLETED
 
-These features are already implemented in `FileAnalyzer.py`:
+These features are already implemented across the CLI modules (`cli.py`, `detector.py`, `report.py`, `utils.py`):
 
 1. **Core FileTypeDetector Class** - Holds signature definitions, detection logic, and extraction helpers
 2. **Binary Signature Detection** - Reads first 512 bytes and matches against magic-byte signatures
 3. **Magic Byte Loading** - Loads and validates file signatures from `fileSignatures.json`
-4. **Basic Metadata Extraction** - Collects file name, file size, and detected file type
+4. **Extended Metadata Extraction** - Collects file name, file size, detected file type, encoding, timestamps, permissions, and absolute path
 5. **JSON Report Generation** - Writes structured reports to `Reports/` directory with auto-creation
-6. **Error Handling** - Gracefully handles missing files, permission errors, and read failures
-7. **Interactive Mode** - `getFile()` function provides user-friendly input loop
+6. **CSV Report Generation** - Writes row-based CSV reports with header row and serialized nested values
+7. **Error Handling** - Gracefully handles missing files, permission errors, and read failures
+8. **CLI Framework** - Supports `--file`, `--batch`, `--output`, `--format`, `--recursive`, and `--verbose`
 
 ---
 
