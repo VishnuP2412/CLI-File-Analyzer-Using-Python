@@ -28,9 +28,6 @@ A simple Python command-line tool that detects file types using file signature (
 - `FileSignaturedumper.py` - Helper script to generate or update the `fileSignatures.json` database
 - `fileSignatures.json` - Signature database defining supported file types, hex patterns, and offsets
 - `Reports/` - Output folder for generated analysis reports
-- `test1.json` - Example data file (project-specific)
-- `ep.csv` - Example dataset file (project-specific)
-- `plan-smartFileTypeDetector.prompt.md` - Project planning prompt
 
 ## Requirements
 
